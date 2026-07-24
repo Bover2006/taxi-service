@@ -10,6 +10,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css" />
     <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -63,53 +66,70 @@
                     <p class="section-subtitle">Заповніть форму нижче, і авто буде у вас за кілька хвилин</p>
                 </div>
 
-                <div class="booking-wrapper reveal-up delay-100">
-                    <form id="booking-form" class="glass-form glow-form">
-                        
-                        <div class="form-group floating-group">
-                            <div class="input-wrapper neon-focus">
-                                <span class="input-icon">📍</span>
-                                <input type="text" id="pickup" name="pickup" class="floating-input" placeholder=" " required>
-                                <label for="pickup" class="floating-label">Звідки (адреса подачі)</label>
-                            </div>
-                        </div>
-
-                        <div class="form-group floating-group">
-                            <div class="input-wrapper neon-focus">
-                                <span class="input-icon">🏁</span>
-                                <input type="text" id="dropoff" name="dropoff" class="floating-input" placeholder=" " required>
-                                <label for="dropoff" class="floating-label">Куди (адреса призначення)</label>
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group floating-group">
+                <div class="booking-wrapper reveal-up delay-100 layout-2-col">
+                    <div class="booking-form-col">
+                        <form id="booking-form" class="glass-form glow-form">
+                            
+                            <div class="form-group floating-group" style="position: relative;">
                                 <div class="input-wrapper neon-focus">
-                                    <span class="input-icon">⏰</span>
-                                    <input type="time" id="time" name="time" class="floating-input has-value">
-                                    <label for="time" class="floating-label static-label">Час подачі</label>
+                                    <span class="input-icon">📍</span>
+                                    <input type="text" id="pickup" name="pickup" class="floating-input" placeholder=" " required autocomplete="off">
+                                    <label for="pickup" class="floating-label">Звідки (адреса подачі)</label>
                                 </div>
-                                <small class="form-hint">Залиште порожнім для подачі "на зараз"</small>
+                                <div id="pickup-results" class="autocomplete-results"></div>
                             </div>
 
-                            <div class="form-group floating-group">
-                                <div class="input-wrapper neon-focus" id="car-class-selector" style="cursor: pointer;">
-                                    <span class="input-icon">🚗</span>
-                                    <input type="text" id="car-class-input" class="floating-input has-value" placeholder=" " value="Стандарт" readonly style="cursor: pointer;">
-                                    <label for="car-class-input" class="floating-label static-label">Клас авто</label>
-                                    <input type="hidden" id="car-class" name="car-class" value="standard">
+                            <div class="form-group floating-group" style="position: relative;">
+                                <div class="input-wrapper neon-focus">
+                                    <span class="input-icon">🏁</span>
+                                    <input type="text" id="dropoff" name="dropoff" class="floating-input" placeholder=" " required autocomplete="off">
+                                    <label for="dropoff" class="floating-label">Куди (адреса призначення)</label>
                                 </div>
+                                <div id="dropoff-results" class="autocomplete-results"></div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group floating-group">
+                                    <div class="input-wrapper neon-focus">
+                                        <span class="input-icon">⏰</span>
+                                        <input type="time" id="time" name="time" class="floating-input has-value">
+                                        <label for="time" class="floating-label static-label">Час подачі</label>
+                                    </div>
+                                    <small class="form-hint">Залиште порожнім для подачі "на зараз"</small>
+                                </div>
+
+                                <div class="form-group floating-group">
+                                    <div class="input-wrapper neon-focus" id="car-class-selector" style="cursor: pointer;">
+                                        <span class="input-icon">🚗</span>
+                                        <input type="text" id="car-class-input" class="floating-input has-value" placeholder=" " value="Стандарт" readonly style="cursor: pointer;">
+                                        <label for="car-class-input" class="floating-label static-label">Клас авто</label>
+                                        <input type="hidden" id="car-class" name="car-class" value="standard">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-accent btn-submit ripple-effect glow-btn">Замовити таксі</button>
+                        </form>
+
+                        <div class="success-message" id="success-message">
+                            <div class="success-icon bounce-anim">✅</div>
+                            <h3 class="neon-text-green">Замовлення прийнято!</h3>
+                            <p>Ваше авто вже в дорозі. Водій зателефонує вам найближчим часом.</p>
+                            <button class="btn btn-outline ripple-effect" id="new-booking-btn">Нове замовлення</button>
+                        </div>
+                    </div>
+                    
+                    <div class="booking-map-col">
+                        <div id="map" class="google-map glass-card">
+                            <div class="map-placeholder">
+                                <span class="map-icon glow-icon">🗺️</span>
+                                <p>Завантаження карти...</p>
                             </div>
                         </div>
-
-                        <button type="submit" class="btn btn-accent btn-submit ripple-effect glow-btn">Замовити таксі</button>
-                    </form>
-
-                    <div class="success-message" id="success-message">
-                        <div class="success-icon bounce-anim">✅</div>
-                        <h3 class="neon-text-green">Замовлення прийнято!</h3>
-                        <p>Ваше авто вже в дорозі. Водій зателефонує вам найближчим часом.</p>
-                        <button class="btn btn-outline ripple-effect" id="new-booking-btn">Нове замовлення</button>
+                        <div id="route-info" class="route-info glass-card" style="display: none;">
+                            <div class="route-distance">Відстань: <span id="dist-val" class="neon-text-green">0 км</span></div>
+                            <div class="route-duration">Час у дорозі: <span id="dur-val" class="neon-text-green">0 хв</span></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -226,6 +246,9 @@
     <div class="custom-cursor" id="custom-cursor"></div>
     <div class="custom-cursor-follower" id="custom-cursor-follower"></div>
 
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
     <script src="js/main.js"></script>
 </body>
 
