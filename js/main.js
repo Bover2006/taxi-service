@@ -117,4 +117,114 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+
+    // 6. Intersection Observer для анімацій при прокрутці
+    const revealElements = document.querySelectorAll('.reveal-up, .reveal-down, .reveal-left, .reveal-right');
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+                revealObserver.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // 7. Кастомний курсор
+    const cursor = document.getElementById('custom-cursor');
+    const cursorFollower = document.getElementById('custom-cursor-follower');
+    
+    if (cursor && cursorFollower) {
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            
+            // Плавний рух фоловера
+            setTimeout(() => {
+                cursorFollower.style.left = e.clientX + 'px';
+                cursorFollower.style.top = e.clientY + 'px';
+            }, 50);
+        });
+
+        // Ефекти при наведенні
+        const hoverElements = document.querySelectorAll('a, button, input, select, .car-option, .feature-card, .logo');
+        hoverElements.forEach(el => {
+            el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+            el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+        });
+    }
+
+    // 8. 3D Tilt Ефект для карток
+    const tiltCards = document.querySelectorAll('.tilt-card, .tilt-card-light');
+    tiltCards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const rotateX = ((y - centerY) / centerY) * -10;
+            const rotateY = ((x - centerX) / centerX) * 10;
+            
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = '';
+        });
+    });
+
+    // 9. Паралакс для авто на головному екрані
+    const heroSection = document.getElementById('hero');
+    const floatingCar = document.querySelector('.floating-car');
+    
+    if (heroSection && floatingCar) {
+        heroSection.addEventListener('mousemove', (e) => {
+            const x = (window.innerWidth / 2 - e.pageX) / 30;
+            const y = (window.innerHeight / 2 - e.pageY) / 30;
+            
+            floatingCar.style.setProperty('--px', `${x}px`);
+            floatingCar.style.setProperty('--py', `${y}px`);
+        });
+        
+        heroSection.addEventListener('mouseleave', () => {
+            floatingCar.style.setProperty('--px', `0px`);
+            floatingCar.style.setProperty('--py', `0px`);
+        });
+    }
+
+    // 10. Typewriter Effect (Ефект друкарської машинки)
+    const typeTarget = document.querySelector('.type-effect');
+    if (typeTarget) {
+        const text = typeTarget.innerHTML;
+        typeTarget.innerHTML = '';
+        let i = 0;
+        let isTag = false;
+        let currentText = '';
+        
+        function typeWriter() {
+            if (i < text.length) {
+                const char = text.charAt(i);
+                if (char === '<') isTag = true;
+                
+                currentText += char;
+                typeTarget.innerHTML = currentText + '<span class="cursor-blink">|</span>';
+                
+                if (char === '>') isTag = false;
+                
+                i++;
+                let speed = isTag ? 0 : 50 + Math.random() * 50;
+                setTimeout(typeWriter, speed);
+            } else {
+                typeTarget.innerHTML = text + '<span class="cursor-blink">|</span>';
+            }
+        }
+        setTimeout(typeWriter, 500);
+    }
 });

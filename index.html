@@ -14,97 +14,99 @@
 </head>
 
 <body>
-    <header class="header" id="header">
+    <!-- Живий фон -->
+    <div class="bg-animation"></div>
+
+    <header class="header reveal-down" id="header">
         <div class="container header-container">
-            <a href="#" class="logo">
+            <a href="#" class="logo glow-hover">
                 <span class="logo-icon">🍌</span>
                 Banana<span class="logo-highlight">Taxi</span>
             </a>
             <nav class="nav">
                 <ul class="nav-list">
-                    <li><a href="#hero" class="nav-link">Головна</a></li>
-                    <li><a href="#booking" class="nav-link">Замовити</a></li>
-                    <li><a href="#features" class="nav-link">Переваги</a></li>
+                    <li><a href="#hero" class="nav-link hover-underline">Головна</a></li>
+                    <li><a href="#booking" class="nav-link hover-underline">Замовити</a></li>
+                    <li><a href="#features" class="nav-link hover-underline">Переваги</a></li>
                 </ul>
             </nav>
-            <a href="#booking" class="btn btn-accent header-btn">Замовити зараз</a>
+            <a href="#booking" class="btn btn-accent header-btn ripple-effect">Замовити зараз</a>
         </div>
     </header>
 
     <main>
         <section id="hero" class="hero">
             <div class="container hero-container">
-                <div class="hero-content">
-                    <h1 class="hero-title">Твоє таксі, завжди <span class="text-highlight">вчасне</span></h1>
+                <div class="hero-content reveal-right">
+                    <h1 class="hero-title type-effect">Твоє таксі, завжди <span class="text-highlight neon-text">вчасне</span></h1>
                     <p class="hero-subtitle">Швидка подача, комфортні авто та привітні водії. Довеземо з вітерцем!</p>
                     <div class="hero-buttons">
-                        <a href="#booking" class="btn btn-accent btn-large">Замовити авто</a>
-                        <a href="#features" class="btn btn-outline btn-large">Дізнатись більше</a>
+                        <a href="#booking" class="btn btn-accent btn-large ripple-effect pulse-anim">Замовити авто</a>
+                        <a href="#features" class="btn btn-outline btn-large ripple-effect">Дізнатись більше</a>
                     </div>
                 </div>
-                <div class="hero-visual">
-                    <img src="assets/bananacar.png" alt="Banana Taxi" class="hero-car-img">
-                    <div class="decoration-circle circle-1"></div>
-                    <div class="decoration-circle circle-2"></div>
+                <div class="hero-visual reveal-left" id="hero-visual-3d">
+                    <img src="assets/bananacar.png" alt="Banana Taxi" class="hero-car-img floating-car">
+                    <div class="decoration-circle circle-1 floating-circle-1"></div>
+                    <div class="decoration-circle circle-2 floating-circle-2"></div>
                 </div>
             </div>
         </section>
 
         <section id="booking" class="booking section">
             <div class="container">
-                <div class="section-header">
+                <div class="section-header reveal-up">
                     <h2 class="section-title">Замовити поїздку</h2>
                     <p class="section-subtitle">Заповніть форму нижче, і авто буде у вас за кілька хвилин</p>
                 </div>
 
-                <div class="booking-wrapper">
-                    <form id="booking-form" class="glass-form">
-                        <div class="form-group">
-                            <label for="pickup">Звідки:</label>
-                            <div class="input-wrapper">
+                <div class="booking-wrapper reveal-up delay-100">
+                    <form id="booking-form" class="glass-form glow-form">
+                        
+                        <div class="form-group floating-group">
+                            <div class="input-wrapper neon-focus">
                                 <span class="input-icon">📍</span>
-                                <input type="text" id="pickup" name="pickup" placeholder="Введіть адресу подачі"
-                                    required>
+                                <input type="text" id="pickup" name="pickup" class="floating-input" placeholder=" " required>
+                                <label for="pickup" class="floating-label">Звідки (адреса подачі)</label>
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="dropoff">Куди:</label>
-                            <div class="input-wrapper">
+                        <div class="form-group floating-group">
+                            <div class="input-wrapper neon-focus">
                                 <span class="input-icon">🏁</span>
-                                <input type="text" id="dropoff" name="dropoff" placeholder="Введіть адресу призначення"
-                                    required>
+                                <input type="text" id="dropoff" name="dropoff" class="floating-input" placeholder=" " required>
+                                <label for="dropoff" class="floating-label">Куди (адреса призначення)</label>
                             </div>
                         </div>
 
                         <div class="form-row">
-                            <div class="form-group">
-                                <label for="time">Час:</label>
-                                <div class="input-wrapper">
+                            <div class="form-group floating-group">
+                                <div class="input-wrapper neon-focus">
                                     <span class="input-icon">⏰</span>
-                                    <input type="time" id="time" name="time">
+                                    <input type="time" id="time" name="time" class="floating-input has-value">
+                                    <label for="time" class="floating-label static-label">Час подачі</label>
                                 </div>
                                 <small class="form-hint">Залиште порожнім для подачі "на зараз"</small>
                             </div>
 
-                            <div class="form-group">
-                                <label for="car-class-input">Клас авто:</label>
-                                <div class="input-wrapper" id="car-class-selector" style="cursor: pointer;">
+                            <div class="form-group floating-group">
+                                <div class="input-wrapper neon-focus" id="car-class-selector" style="cursor: pointer;">
                                     <span class="input-icon">🚗</span>
-                                    <input type="text" id="car-class-input" placeholder="Виберіть авто" value="Стандарт" readonly style="cursor: pointer;">
+                                    <input type="text" id="car-class-input" class="floating-input has-value" placeholder=" " value="Стандарт" readonly style="cursor: pointer;">
+                                    <label for="car-class-input" class="floating-label static-label">Клас авто</label>
                                     <input type="hidden" id="car-class" name="car-class" value="standard">
                                 </div>
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-accent btn-submit">Замовити таксі</button>
+                        <button type="submit" class="btn btn-accent btn-submit ripple-effect glow-btn">Замовити таксі</button>
                     </form>
 
                     <div class="success-message" id="success-message">
-                        <div class="success-icon">✅</div>
-                        <h3>Замовлення прийнято!</h3>
+                        <div class="success-icon bounce-anim">✅</div>
+                        <h3 class="neon-text-green">Замовлення прийнято!</h3>
                         <p>Ваше авто вже в дорозі. Водій зателефонує вам найближчим часом.</p>
-                        <button class="btn btn-outline" id="new-booking-btn">Нове замовлення</button>
+                        <button class="btn btn-outline ripple-effect" id="new-booking-btn">Нове замовлення</button>
                     </div>
                 </div>
             </div>
@@ -112,28 +114,28 @@
 
         <section id="features" class="features section">
             <div class="container">
-                <div class="section-header">
+                <div class="section-header reveal-up">
                     <h2 class="section-title">Чому обирають нас</h2>
                     <p class="section-subtitle">Ми працюємо для вашого комфорту та безпеки</p>
                 </div>
 
                 <div class="features-grid">
-                    <div class="feature-card glass-card">
-                        <div class="feature-icon">⚡</div>
+                    <div class="feature-card glass-card reveal-up delay-100 tilt-card">
+                        <div class="feature-icon glow-icon">⚡</div>
                         <h3 class="feature-title">Швидка подача</h3>
                         <p class="feature-desc">Середній час подачі авто складає всього 5 хвилин завдяки великому
                             автопарку.</p>
                     </div>
 
-                    <div class="feature-card glass-card">
-                        <div class="feature-icon">🛡️</div>
+                    <div class="feature-card glass-card reveal-up delay-200 tilt-card">
+                        <div class="feature-icon glow-icon">🛡️</div>
                         <h3 class="feature-title">Безпека</h3>
                         <p class="feature-desc">Всі наші водії проходять ретельний відбір та перевірку. Авто регулярно
                             проходять ТО.</p>
                     </div>
 
-                    <div class="feature-card glass-card">
-                        <div class="feature-icon">💎</div>
+                    <div class="feature-card glass-card reveal-up delay-300 tilt-card">
+                        <div class="feature-icon glow-icon">💎</div>
                         <h3 class="feature-title">Комфорт</h3>
                         <p class="feature-desc">Чисті та доглянуті салони, ввічливі водії та приємна музика на ваш
                             вибір.</p>
@@ -143,10 +145,10 @@
         </section>
     </main>
 
-    <footer class="footer">
+    <footer class="footer reveal-up">
         <div class="container footer-container">
             <div class="footer-brand">
-                <a href="#" class="logo">
+                <a href="#" class="logo glow-hover">
                     <span class="logo-icon">🚕</span>
                     Banana<span class="logo-highlight">Taxi</span>
                 </a>
@@ -156,17 +158,17 @@
             <div class="footer-links">
                 <h4>Навігація</h4>
                 <ul>
-                    <li><a href="#hero">Головна</a></li>
-                    <li><a href="#booking">Замовити</a></li>
-                    <li><a href="#features">Переваги</a></li>
+                    <li><a href="#hero" class="hover-underline">Головна</a></li>
+                    <li><a href="#booking" class="hover-underline">Замовити</a></li>
+                    <li><a href="#features" class="hover-underline">Переваги</a></li>
                 </ul>
             </div>
 
             <div class="footer-contact">
                 <h4>Контакти</h4>
                 <ul>
-                    <li>📞 <a href="tel:+380000000000">+38 (000) 000-00-00</a></li>
-                    <li>✉️ <a href="mailto:info@bananataxi.ua">info@bananataxi.ua</a></li>
+                    <li>📞 <a href="tel:+380000000000" class="hover-underline">+38 (000) 000-00-00</a></li>
+                    <li>✉️ <a href="mailto:info@bananataxi.ua" class="hover-underline">info@bananataxi.ua</a></li>
                     <li>📍 Київ, вул. Хрещатик, 1</li>
                 </ul>
             </div>
@@ -179,34 +181,34 @@
     <!-- Модальне вікно вибору авто -->
     <div class="modal" id="car-modal">
         <div class="modal-overlay" id="modal-overlay"></div>
-        <div class="modal-content glass-card">
+        <div class="modal-content glass-card popup-anim">
             <div class="modal-header">
                 <h3>Виберіть клас авто</h3>
                 <button type="button" class="close-modal" id="close-modal">&times;</button>
             </div>
             <div class="car-options-grid">
-                <div class="car-option selected" data-value="standard" data-name="Стандарт">
+                <div class="car-option selected tilt-card-light" data-value="standard" data-name="Стандарт">
                     <div class="car-bg" style="background-image: url('assets/usataxi.png');"></div>
                     <div class="car-content">
                         <h4>Стандарт</h4>
                         <p>Економно та зручно</p>
                     </div>
                 </div>
-                <div class="car-option" data-value="comfort" data-name="Комфорт">
+                <div class="car-option tilt-card-light" data-value="comfort" data-name="Комфорт">
                     <div class="car-bg" style="background-image: url('assets/tesla.png');"></div>
                     <div class="car-content">
                         <h4>Комфорт</h4>
                         <p>Просторий салон</p>
                     </div>
                 </div>
-                <div class="car-option" data-value="business" data-name="Бізнес">
+                <div class="car-option tilt-card-light" data-value="business" data-name="Бізнес">
                     <div class="car-bg" style="background-image: url('assets/banana.png');"></div>
                     <div class="car-content">
                         <h4>Бізнес</h4>
                         <p>Преміум авто</p>
                     </div>
                 </div>
-                <div class="car-option" data-value="minivan" data-name="Мінівен">
+                <div class="car-option tilt-card-light" data-value="minivan" data-name="Мінівен">
                     <div class="car-bg" style="background-image: url('assets/vito.png');"></div>
                     <div class="car-content">
                         <h4>Мінівен</h4>
@@ -216,6 +218,10 @@
             </div>
         </div>
     </div>
+
+    <!-- Кастомний курсор -->
+    <div class="custom-cursor" id="custom-cursor"></div>
+    <div class="custom-cursor-follower" id="custom-cursor-follower"></div>
 
     <script src="js/main.js"></script>
 </body>
