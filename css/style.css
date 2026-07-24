@@ -13,8 +13,26 @@
     --glass-border: rgba(255, 255, 255, 0.8);
     --glass-shadow: 0 8px 32px 0 rgba(44, 62, 80, 0.08);
     
+    --bg-gradient: #f7e074;
+    --hero-gradient-end: var(--primary);
+    --header-bg: rgba(255, 253, 208, 0.9);
+    
     --transition: all 0.3s ease;
     --border-radius: 16px;
+}
+
+[data-theme="dark"] {
+    --text: #F8F9FA;
+    --bg: #121212;
+    --bg-darker: #0a0a0a;
+    --white: #1e1e1e;
+    --gray-light: rgba(255, 255, 255, 0.05);
+    --glass-bg: rgba(30, 30, 30, 0.6);
+    --glass-border: rgba(255, 255, 255, 0.05);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+    --bg-gradient: #1a1a1a;
+    --hero-gradient-end: #1a1a1a;
+    --header-bg: rgba(18, 18, 18, 0.9);
 }
 
 * {
@@ -150,7 +168,7 @@ body {
 }
 
 .header.scrolled {
-    background: rgba(255, 253, 208, 0.9);
+    background: var(--header-bg);
     backdrop-filter: blur(10px);
     box-shadow: 0 4px 20px rgba(44, 62, 80, 0.05);
     padding: 15px 0;
@@ -160,6 +178,27 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.theme-toggle {
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: var(--transition);
+}
+
+.theme-toggle:hover {
+    background: var(--gray-light);
+    transform: rotate(15deg);
 }
 
 .logo {
@@ -174,6 +213,17 @@ body {
 
 .logo-icon {
     font-size: 1.8rem;
+    display: inline-block;
+}
+
+.logo:hover .logo-icon {
+    animation: salto 0.6s ease-in-out;
+}
+
+@keyframes salto {
+    0% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(1.2); }
+    100% { transform: rotate(360deg) scale(1); }
 }
 
 .logo-highlight {
@@ -217,7 +267,7 @@ body {
     align-items: center;
     position: relative;
     padding-top: 80px;
-    background: linear-gradient(135deg, var(--bg) 0%, var(--primary) 100%);
+    background: linear-gradient(135deg, var(--bg) 0%, var(--hero-gradient-end) 100%);
     overflow: hidden;
 }
 
