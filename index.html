@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banana Taxi - Замовляй швидко та зручно</title>
+    <meta name="description"
+        content="Швидке та зручне замовлення таксі онлайн. Комфортні поїздки за доступними цінами.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <header class="header" id="header">
+        <div class="container header-container">
+            <a href="#" class="logo">
+                <span class="logo-icon">🍌</span>
+                Banana<span class="logo-highlight">Taxi</span>
+            </a>
+            <nav class="nav">
+                <ul class="nav-list">
+                    <li><a href="#hero" class="nav-link">Головна</a></li>
+                    <li><a href="#booking" class="nav-link">Замовити</a></li>
+                    <li><a href="#features" class="nav-link">Переваги</a></li>
+                </ul>
+            </nav>
+            <a href="#booking" class="btn btn-accent header-btn">Замовити зараз</a>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero" class="hero">
+            <div class="container hero-container">
+                <div class="hero-content">
+                    <h1 class="hero-title">Твоє таксі, завжди <span class="text-highlight">вчасне</span></h1>
+                    <p class="hero-subtitle">Швидка подача, комфортні авто та привітні водії. Довеземо з вітерцем!</p>
+                    <div class="hero-buttons">
+                        <a href="#booking" class="btn btn-accent btn-large">Замовити авто</a>
+                        <a href="#features" class="btn btn-outline btn-large">Дізнатись більше</a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <img src="assets/bananacar.png" alt="Banana Taxi" class="hero-car-img">
+                    <div class="decoration-circle circle-1"></div>
+                    <div class="decoration-circle circle-2"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="booking" class="booking section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Замовити поїздку</h2>
+                    <p class="section-subtitle">Заповніть форму нижче, і авто буде у вас за кілька хвилин</p>
+                </div>
+
+                <div class="booking-wrapper">
+                    <form id="booking-form" class="glass-form">
+                        <div class="form-group">
+                            <label for="pickup">Звідки:</label>
+                            <div class="input-wrapper">
+                                <span class="input-icon">📍</span>
+                                <input type="text" id="pickup" name="pickup" placeholder="Введіть адресу подачі"
+                                    required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="dropoff">Куди:</label>
+                            <div class="input-wrapper">
+                                <span class="input-icon">🏁</span>
+                                <input type="text" id="dropoff" name="dropoff" placeholder="Введіть адресу призначення"
+                                    required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="time">Час:</label>
+                                <div class="input-wrapper">
+                                    <span class="input-icon">⏰</span>
+                                    <input type="time" id="time" name="time">
+                                </div>
+                                <small class="form-hint">Залиште порожнім для подачі "на зараз"</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="car-class">Клас авто:</label>
+                                <div class="input-wrapper">
+                                    <span class="input-icon">🚗</span>
+                                    <select id="car-class" name="car-class">
+                                        <option value="standard">Стандарт</option>
+                                        <option value="comfort">Комфорт</option>
+                                        <option value="business">Бізнес</option>
+                                        <option value="minivan">Мінівен</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-accent btn-submit">Замовити таксі</button>
+                    </form>
+
+                    <div class="success-message" id="success-message">
+                        <div class="success-icon">✅</div>
+                        <h3>Замовлення прийнято!</h3>
+                        <p>Ваше авто вже в дорозі. Водій зателефонує вам найближчим часом.</p>
+                        <button class="btn btn-outline" id="new-booking-btn">Нове замовлення</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="features section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Чому обирають нас</h2>
+                    <p class="section-subtitle">Ми працюємо для вашого комфорту та безпеки</p>
+                </div>
+
+                <div class="features-grid">
+                    <div class="feature-card glass-card">
+                        <div class="feature-icon">⚡</div>
+                        <h3 class="feature-title">Швидка подача</h3>
+                        <p class="feature-desc">Середній час подачі авто складає всього 5 хвилин завдяки великому
+                            автопарку.</p>
+                    </div>
+
+                    <div class="feature-card glass-card">
+                        <div class="feature-icon">🛡️</div>
+                        <h3 class="feature-title">Безпека</h3>
+                        <p class="feature-desc">Всі наші водії проходять ретельний відбір та перевірку. Авто регулярно
+                            проходять ТО.</p>
+                    </div>
+
+                    <div class="feature-card glass-card">
+                        <div class="feature-icon">💎</div>
+                        <h3 class="feature-title">Комфорт</h3>
+                        <p class="feature-desc">Чисті та доглянуті салони, ввічливі водії та приємна музика на ваш
+                            вибір.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-brand">
+                <a href="#" class="logo">
+                    <span class="logo-icon">🚕</span>
+                    Banana<span class="logo-highlight">Taxi</span>
+                </a>
+                <p class="footer-desc">Надійний сервіс замовлення таксі для тих, хто цінує свій час та комфорт.</p>
+            </div>
+
+            <div class="footer-links">
+                <h4>Навігація</h4>
+                <ul>
+                    <li><a href="#hero">Головна</a></li>
+                    <li><a href="#booking">Замовити</a></li>
+                    <li><a href="#features">Переваги</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-contact">
+                <h4>Контакти</h4>
+                <ul>
+                    <li>📞 <a href="tel:+380000000000">+38 (000) 000-00-00</a></li>
+                    <li>✉️ <a href="mailto:info@bananataxi.ua">info@bananataxi.ua</a></li>
+                    <li>📍 Київ, вул. Хрещатик, 1</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 BananaTaxi. Всі права захищені. Студентський проєкт.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>
