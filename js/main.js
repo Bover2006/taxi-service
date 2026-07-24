@@ -114,6 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 carClassInput.value = selectedName;
                 
                 closeModal();
+                if (window.calculateAndDisplayPrice) window.calculateAndDisplayPrice();
             });
         });
     }
@@ -357,7 +358,31 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById('route-info').style.display = 'flex';
                 document.getElementById('dist-val').textContent = distanceKm + ' км';
                 document.getElementById('dur-val').textContent = timeMin + ' хв';
+                
+                if (window.calculateAndDisplayPrice) window.calculateAndDisplayPrice(parseFloat(distanceKm));
             });
         }
     }
 });
+
+// 13. Глобальна функція для розрахунку вартості
+window.calculateAndDisplayPrice = function(distanceKm) {
+    if (distanceKm !== undefined) {
+        window.currentDistanceKm = distanceKm;
+    }
+    const dist = window.currentDistanceKm || 0;
+    if (dist === 0) return; // Маршрут ще не побудовано
+
+    const carClass = document.getElementById('car-class').value;
+    const basePrice = 50; // подача
+    const pricePerKm = 15;
+    let multiplier = 1.0;
+
+    if (carClass === 'comfort') multiplier = 1.3;
+    else if (carClass === 'business') multiplier = 2.0;
+    else if (carClass === 'minivan') multiplier = 1.5;
+
+    const total = Math.round((basePrice + dist * pricePerKm) * multiplier);
+    
+    document.getElementById('price-val').textContent = total + ' ₴';
+};
