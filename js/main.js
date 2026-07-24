@@ -252,3 +252,112 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+// 12. Безкоштовна карта (Leaflet + OpenStreetMap)
+document.addEventListener('DOMContentLoaded', () => {
+    const mapElement = document.getElementById('map');
+    if (!mapElement) return;
+
+    // Прибираємо плейсхолдер
+    mapElement.innerHTML = '';
+
+    // Ініціалізація карти (Київ)
+    const map = L.map('map').setView([50.4501, 30.5234], 12);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    let routingControl = null;
+    let pickupCoords = null;
+    let dropoffCoords = null;
+
+    function setupAutocomplete(inputId, resultsId, isPickup) {
+        const input = document.getElementById(inputId);
+        const results = document.getElementById(resultsId);
+        let timeout = null;
+
+        input.addEventListener('input', (e) => {
+            clearTimeout(timeout);
+            const query = e.target.value;
+            
+            if (query.length < 3) {
+                results.style.display = 'none';
+                return;
+            }
+
+            timeout = setTimeout(() => {
+                // Запит до безкоштовного Nominatim API
+                fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=5&countrycodes=ua`)
+                    .then(res => res.json())
+                    .then(data => {
+                        results.innerHTML = '';
+                        if (data.length > 0) {
+                            results.style.display = 'block';
+                            data.forEach(place => {
+                                const div = document.createElement('div');
+                                div.className = 'autocomplete-item';
+                                div.textContent = place.display_name;
+                                div.addEventListener('click', () => {
+                                    input.value = place.display_name;
+                                    results.style.display = 'none';
+                                    
+                                    const coords = L.latLng(place.lat, place.lon);
+                                    if (isPickup) pickupCoords = coords;
+                                    else dropoffCoords = coords;
+                                    
+                                    map.flyTo(coords, 14);
+                                    checkAndDrawRoute();
+                                });
+                                results.appendChild(div);
+                            });
+                        } else {
+                            results.style.display = 'none';
+                        }
+                    });
+            }, 600); // Затримка, щоб не спамити API
+        });
+
+        // Ховати результати при кліку поза межами
+        document.addEventListener('click', (e) => {
+            if (e.target !== input && e.target !== results) {
+                results.style.display = 'none';
+            }
+        });
+    }
+
+    setupAutocomplete('pickup', 'pickup-results', true);
+    setupAutocomplete('dropoff', 'dropoff-results', false);
+
+    function checkAndDrawRoute() {
+        if (pickupCoords && dropoffCoords) {
+            if (routingControl) {
+                map.removeControl(routingControl);
+            }
+
+            // Побудова маршруту через OSRM
+            routingControl = L.Routing.control({
+                waypoints: [pickupCoords, dropoffCoords],
+                routeWhileDragging: false,
+                addWaypoints: false,
+                show: false, // Приховуємо детальну текстову панель маршруту
+                lineOptions: {
+                    styles: [{ color: '#2ECC71', opacity: 0.9, weight: 5 }]
+                }
+            }).addTo(map);
+
+            routingControl.on('routesfound', function(e) {
+                const routes = e.routes;
+                const summary = routes[0].summary;
+                
+                // Переводимо метри в км, а секунди в хвилини
+                const distanceKm = (summary.totalDistance / 1000).toFixed(1);
+                const timeMin = Math.round(summary.totalTime / 60);
+
+                document.getElementById('route-info').style.display = 'flex';
+                document.getElementById('dist-val').textContent = distanceKm + ' км';
+                document.getElementById('dur-val').textContent = timeMin + ' хв';
+            });
+        }
+    }
+});
