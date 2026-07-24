@@ -76,4 +76,45 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    // 5. Логіка модального вікна вибору авто
+    const carModal = document.getElementById('car-modal');
+    const carClassSelector = document.getElementById('car-class-selector');
+    const closeModalBtn = document.getElementById('close-modal');
+    const modalOverlay = document.getElementById('modal-overlay');
+    const carOptions = document.querySelectorAll('.car-option');
+    const carClassInput = document.getElementById('car-class-input');
+    const carClassHidden = document.getElementById('car-class');
+
+    function openModal() {
+        carModal.classList.add('active');
+    }
+
+    function closeModal() {
+        carModal.classList.remove('active');
+    }
+
+    if (carClassSelector && carModal) {
+        carClassSelector.addEventListener('click', openModal);
+        closeModalBtn.addEventListener('click', closeModal);
+        modalOverlay.addEventListener('click', closeModal);
+
+        carOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                // Видаляємо клас selected у всіх
+                carOptions.forEach(opt => opt.classList.remove('selected'));
+                // Додаємо поточному
+                this.classList.add('selected');
+                
+                // Оновлюємо значення в формі
+                const selectedValue = this.getAttribute('data-value');
+                const selectedName = this.getAttribute('data-name');
+                
+                carClassHidden.value = selectedValue;
+                carClassInput.value = selectedName;
+                
+                closeModal();
+            });
+        });
+    }
 });

@@ -88,15 +88,11 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="car-class">Клас авто:</label>
-                                <div class="input-wrapper">
+                                <label for="car-class-input">Клас авто:</label>
+                                <div class="input-wrapper" id="car-class-selector" style="cursor: pointer;">
                                     <span class="input-icon">🚗</span>
-                                    <select id="car-class" name="car-class">
-                                        <option value="standard">Стандарт</option>
-                                        <option value="comfort">Комфорт</option>
-                                        <option value="business">Бізнес</option>
-                                        <option value="minivan">Мінівен</option>
-                                    </select>
+                                    <input type="text" id="car-class-input" placeholder="Виберіть авто" value="Стандарт" readonly style="cursor: pointer;">
+                                    <input type="hidden" id="car-class" name="car-class" value="standard">
                                 </div>
                             </div>
                         </div>
@@ -179,6 +175,47 @@
             <p>&copy; 2026 BananaTaxi. Всі права захищені. Студентський проєкт.</p>
         </div>
     </footer>
+
+    <!-- Модальне вікно вибору авто -->
+    <div class="modal" id="car-modal">
+        <div class="modal-overlay" id="modal-overlay"></div>
+        <div class="modal-content glass-card">
+            <div class="modal-header">
+                <h3>Виберіть клас авто</h3>
+                <button type="button" class="close-modal" id="close-modal">&times;</button>
+            </div>
+            <div class="car-options-grid">
+                <div class="car-option selected" data-value="standard" data-name="Стандарт">
+                    <div class="car-bg" style="background-image: url('assets/usataxi.png');"></div>
+                    <div class="car-content">
+                        <h4>Стандарт</h4>
+                        <p>Економно та зручно</p>
+                    </div>
+                </div>
+                <div class="car-option" data-value="comfort" data-name="Комфорт">
+                    <div class="car-bg" style="background-image: url('assets/tesla.png');"></div>
+                    <div class="car-content">
+                        <h4>Комфорт</h4>
+                        <p>Просторий салон</p>
+                    </div>
+                </div>
+                <div class="car-option" data-value="business" data-name="Бізнес">
+                    <div class="car-bg" style="background-image: url('assets/banana.png');"></div>
+                    <div class="car-content">
+                        <h4>Бізнес</h4>
+                        <p>Преміум авто</p>
+                    </div>
+                </div>
+                <div class="car-option" data-value="minivan" data-name="Мінівен">
+                    <div class="car-bg" style="background-image: url('assets/vito.png');"></div>
+                    <div class="car-content">
+                        <h4>Мінівен</h4>
+                        <p>Для великих компаній</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="js/main.js"></script>
 </body>

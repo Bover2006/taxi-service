@@ -513,6 +513,133 @@ input:focus, select:focus {
     font-size: 0.9rem;
 }
 
+/* Модальне вікно */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal.active {
+    display: flex;
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(44, 62, 80, 0.6);
+    backdrop-filter: blur(4px);
+}
+
+.modal-content {
+    position: relative;
+    z-index: 2001;
+    width: 90%;
+    max-width: 600px;
+    padding: 30px;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.modal-header h3 {
+    font-size: 1.5rem;
+    color: var(--text);
+}
+
+.close-modal {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: var(--text);
+    transition: var(--transition);
+}
+
+.close-modal:hover {
+    color: var(--accent);
+}
+
+.car-options-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.car-option {
+    position: relative;
+    border: 2px solid var(--gray-light);
+    border-radius: var(--border-radius);
+    padding: 100px 20px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: var(--transition);
+    background: var(--white);
+    overflow: hidden;
+}
+
+.car-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.4;
+    transition: var(--transition);
+    z-index: 0;
+}
+
+.car-option:hover .car-bg,
+.car-option.selected .car-bg {
+    opacity: 0.7;
+    transform: scale(1.05);
+}
+
+.car-option:hover {
+    border-color: var(--accent);
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(44, 62, 80, 0.1);
+}
+
+.car-option.selected {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(255, 225, 53, 0.5);
+}
+
+.car-content {
+    position: relative;
+    z-index: 1;
+    background: rgba(255, 255, 255, 0.85);
+    padding: 10px;
+    border-radius: 8px;
+    backdrop-filter: blur(4px);
+}
+
+.car-option h4 {
+    margin-bottom: 5px;
+}
+
+.car-option p {
+    font-size: 0.85rem;
+    opacity: 0.7;
+}
+
 /* Медіа-запити для адаптивності */
 @media (max-width: 992px) {
     .hero-title { font-size: 3rem; }
@@ -527,4 +654,5 @@ input:focus, select:focus {
     .hero-title { font-size: 2.5rem; }
     .form-row { flex-direction: column; gap: 0; }
     .section { padding: 50px 0; }
+    .car-options-grid { grid-template-columns: 1fr; }
 }
