@@ -119,6 +119,20 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // 5.5 Логіка кнопок вибору способу оплати
+    const paymentBtns = document.querySelectorAll('.payment-btn');
+    const paymentHidden = document.getElementById('payment-method');
+
+    if (paymentBtns.length > 0 && paymentHidden) {
+        paymentBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                paymentBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                paymentHidden.value = this.getAttribute('data-method');
+            });
+        });
+    }
+
     // 6. Intersection Observer для анімацій при прокрутці
     const revealElements = document.querySelectorAll('.reveal-up, .reveal-down, .reveal-left, .reveal-right');
     const revealObserver = new IntersectionObserver((entries) => {

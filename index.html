@@ -108,6 +108,42 @@
                                 </div>
                             </div>
 
+                            <hr class="form-divider">
+
+                            <div class="form-row">
+                                <div class="form-group floating-group">
+                                    <div class="input-wrapper neon-focus">
+                                        <span class="input-icon">👤</span>
+                                        <input type="text" id="fname" name="fname" class="floating-input" placeholder=" " required>
+                                        <label for="fname" class="floating-label">Ім'я</label>
+                                    </div>
+                                </div>
+                                <div class="form-group floating-group">
+                                    <div class="input-wrapper neon-focus">
+                                        <span class="input-icon">👥</span>
+                                        <input type="text" id="lname" name="lname" class="floating-input" placeholder=" " required>
+                                        <label for="lname" class="floating-label">Прізвище</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group floating-group">
+                                <div class="input-wrapper neon-focus">
+                                    <span class="input-icon">📱</span>
+                                    <input type="tel" id="phone" name="phone" class="floating-input" placeholder=" " required>
+                                    <label for="phone" class="floating-label">Номер телефону</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group payment-group">
+                                <label class="payment-label">Спосіб оплати</label>
+                                <div class="payment-toggle">
+                                    <button type="button" class="payment-btn active" data-method="card">💳 Картка</button>
+                                    <button type="button" class="payment-btn" data-method="cash">💵 Готівка</button>
+                                </div>
+                                <input type="hidden" id="payment-method" name="payment-method" value="card">
+                            </div>
+
                             <button type="submit" class="btn btn-accent btn-submit ripple-effect glow-btn">Замовити таксі</button>
                         </form>
 
