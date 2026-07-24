@@ -227,4 +227,28 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         setTimeout(typeWriter, 500);
     }
+
+    // 11. Перемикач темної теми
+    const themeToggle = document.getElementById('theme-toggle');
+    if (themeToggle) {
+        // Перевіряємо збережену тему
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.body.setAttribute('data-theme', 'dark');
+            themeToggle.textContent = '☀️';
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            const isDark = document.body.getAttribute('data-theme') === 'dark';
+            if (isDark) {
+                document.body.removeAttribute('data-theme');
+                themeToggle.textContent = '🌙';
+                localStorage.setItem('theme', 'light');
+            } else {
+                document.body.setAttribute('data-theme', 'dark');
+                themeToggle.textContent = '☀️';
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+    }
 });
