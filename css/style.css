@@ -457,6 +457,54 @@ input:focus, select:focus, .floating-input:focus {
     opacity: 0.7;
 }
 
+.form-divider {
+    border: 0;
+    height: 1px;
+    background: var(--glass-border);
+    margin: 25px 0;
+}
+
+.payment-group {
+    margin-bottom: 25px;
+}
+
+.payment-label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.payment-toggle {
+    display: flex;
+    gap: 15px;
+}
+
+.payment-btn {
+    flex: 1;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.5);
+    border: 2px solid var(--gray-light);
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 1rem;
+    color: var(--text);
+    cursor: pointer;
+    transition: var(--transition);
+    font-weight: 600;
+}
+
+.payment-btn:hover {
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.payment-btn.active {
+    background: rgba(46, 204, 113, 0.1);
+    border-color: var(--accent);
+    color: var(--accent);
+    box-shadow: 0 0 15px rgba(46, 204, 113, 0.2);
+}
+
 .btn-submit {
     width: 100%;
     padding: 18px;
