@@ -35,7 +35,14 @@
             </nav>
             <div class="header-actions">
                 <button class="theme-toggle ripple-effect" id="theme-toggle" aria-label="Перемикач теми">🌙</button>
-                <a href="#booking" class="btn btn-accent header-btn ripple-effect">Замовити зараз</a>
+                <div id="auth-buttons" class="auth-buttons" style="display: flex; gap: 10px;">
+                    <button class="btn btn-outline header-btn ripple-effect" id="btn-open-login">Увійти</button>
+                    <button class="btn btn-accent header-btn ripple-effect" id="btn-open-register">Реєстрація</button>
+                </div>
+                <div id="user-profile" class="user-profile" style="display: none; align-items: center; gap: 15px;">
+                    <span id="user-greeting" class="user-greeting" style="font-weight: bold; color: var(--text);"></span>
+                    <button class="btn btn-outline header-btn ripple-effect" id="btn-logout" style="padding: 10px 15px; font-size: 0.9rem;">Вийти</button>
+                </div>
             </div>
         </div>
     </header>
@@ -276,6 +283,80 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <!-- Модальне вікно Логіну -->
+    <div class="modal" id="login-modal">
+        <div class="modal-content glass-card" style="max-width: 400px; padding: 40px; border-radius: 20px;">
+            <span class="close-btn" id="close-login">&times;</span>
+            <h3 class="neon-text-green" style="margin-bottom: 25px; text-align: center; font-size: 2rem;">Вхід</h3>
+            <form id="login-form">
+                <div class="form-group floating-group">
+                    <div class="input-wrapper neon-focus">
+                        <span class="input-icon">✉️</span>
+                        <input type="email" id="login-email" class="floating-input" placeholder=" " required>
+                        <label for="login-email" class="floating-label">Email</label>
+                    </div>
+                </div>
+                <div class="form-group floating-group">
+                    <div class="input-wrapper neon-focus">
+                        <span class="input-icon">🔒</span>
+                        <input type="password" id="login-password" class="floating-input" placeholder=" " required>
+                        <label for="login-password" class="floating-label">Пароль</label>
+                    </div>
+                </div>
+                <p id="login-error" style="color: #ff4757; display: none; margin-bottom: 15px; font-weight: bold; text-align: center;"></p>
+                <button type="submit" class="btn btn-accent btn-submit ripple-effect glow-btn">Увійти</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Модальне вікно Реєстрації -->
+    <div class="modal" id="register-modal">
+        <div class="modal-content glass-card" style="max-width: 500px; padding: 40px; border-radius: 20px;">
+            <span class="close-btn" id="close-register">&times;</span>
+            <h3 class="neon-text-green" style="margin-bottom: 25px; text-align: center; font-size: 2rem;">Реєстрація</h3>
+            <form id="register-form">
+                <div class="form-row">
+                    <div class="form-group floating-group">
+                        <div class="input-wrapper neon-focus">
+                            <span class="input-icon">👤</span>
+                            <input type="text" id="reg-fname" class="floating-input" placeholder=" " required>
+                            <label for="reg-fname" class="floating-label">Ім'я</label>
+                        </div>
+                    </div>
+                    <div class="form-group floating-group">
+                        <div class="input-wrapper neon-focus">
+                            <span class="input-icon">👥</span>
+                            <input type="text" id="reg-lname" class="floating-input" placeholder=" " required>
+                            <label for="reg-lname" class="floating-label">Прізвище</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group floating-group">
+                    <div class="input-wrapper neon-focus">
+                        <span class="input-icon">📱</span>
+                        <input type="tel" id="reg-phone" class="floating-input" placeholder=" " required>
+                        <label for="reg-phone" class="floating-label">Телефон</label>
+                    </div>
+                </div>
+                <div class="form-group floating-group">
+                    <div class="input-wrapper neon-focus">
+                        <span class="input-icon">✉️</span>
+                        <input type="email" id="reg-email" class="floating-input" placeholder=" " required>
+                        <label for="reg-email" class="floating-label">Email</label>
+                    </div>
+                </div>
+                <div class="form-group floating-group">
+                    <div class="input-wrapper neon-focus">
+                        <span class="input-icon">🔒</span>
+                        <input type="password" id="reg-password" class="floating-input" placeholder=" " required>
+                        <label for="reg-password" class="floating-label">Пароль</label>
+                    </div>
+                </div>
+                <p id="reg-error" style="color: #ff4757; display: none; margin-bottom: 15px; font-weight: bold; text-align: center;"></p>
+                <button type="submit" class="btn btn-accent btn-submit ripple-effect glow-btn">Зареєструватися</button>
+            </form>
         </div>
     </div>
 

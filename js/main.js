@@ -400,3 +400,172 @@ window.calculateAndDisplayPrice = function(distanceKm) {
     
     document.getElementById('price-val').textContent = total + ' ₴';
 };
+
+// 14. Система авторизації та реєстрації
+document.addEventListener('DOMContentLoaded', () => {
+    const loginModal = document.getElementById('login-modal');
+    const registerModal = document.getElementById('register-modal');
+    const btnOpenLogin = document.getElementById('btn-open-login');
+    const btnOpenRegister = document.getElementById('btn-open-register');
+    const closeLogin = document.getElementById('close-login');
+    const closeRegister = document.getElementById('close-register');
+    const authButtons = document.getElementById('auth-buttons');
+    const userProfile = document.getElementById('user-profile');
+    const userGreeting = document.getElementById('user-greeting');
+    const btnLogout = document.getElementById('btn-logout');
+
+    const loginForm = document.getElementById('login-form');
+    const registerForm = document.getElementById('register-form');
+    const loginError = document.getElementById('login-error');
+    const regError = document.getElementById('reg-error');
+
+    const bookingForm = document.getElementById('booking-form');
+    const fNameInput = document.getElementById('fname');
+    const lNameInput = document.getElementById('lname');
+    const phoneInput = document.getElementById('phone');
+
+    if (!localStorage.getItem('taxi_users')) {
+        localStorage.setItem('taxi_users', JSON.stringify([]));
+    }
+
+    function checkAuth() {
+        const currentUser = JSON.parse(localStorage.getItem('taxi_currentUser'));
+        if (currentUser) {
+            if (authButtons) authButtons.style.display = 'none';
+            if (userProfile) userProfile.style.display = 'flex';
+            if (userGreeting) userGreeting.innerHTML = `Привіт, <strong>${currentUser.fname}</strong>`;
+            
+            if (fNameInput) {
+                fNameInput.value = currentUser.fname;
+                fNameInput.classList.add('has-value');
+                fNameInput.readOnly = true;
+            }
+            if (lNameInput) {
+                lNameInput.value = currentUser.lname;
+                lNameInput.classList.add('has-value');
+                lNameInput.readOnly = true;
+            }
+            if (phoneInput) {
+                phoneInput.value = currentUser.phone;
+                phoneInput.classList.add('has-value');
+                phoneInput.readOnly = true;
+            }
+        } else {
+            if (authButtons) authButtons.style.display = 'flex';
+            if (userProfile) userProfile.style.display = 'none';
+            
+            if (fNameInput) {
+                fNameInput.value = '';
+                fNameInput.classList.remove('has-value');
+                fNameInput.readOnly = false;
+            }
+            if (lNameInput) {
+                lNameInput.value = '';
+                lNameInput.classList.remove('has-value');
+                lNameInput.readOnly = false;
+            }
+            if (phoneInput) {
+                phoneInput.value = '';
+                phoneInput.classList.remove('has-value');
+                phoneInput.readOnly = false;
+            }
+        }
+    }
+
+    if (btnOpenLogin) btnOpenLogin.addEventListener('click', () => { loginModal.classList.add('active'); loginError.style.display = 'none'; });
+    if (btnOpenRegister) btnOpenRegister.addEventListener('click', () => { registerModal.classList.add('active'); regError.style.display = 'none'; });
+    if (closeLogin) closeLogin.addEventListener('click', () => loginModal.classList.remove('active'));
+    if (closeRegister) closeRegister.addEventListener('click', () => registerModal.classList.remove('active'));
+
+    window.addEventListener('click', (e) => {
+        if (e.target === loginModal) loginModal.classList.remove('active');
+        if (e.target === registerModal) registerModal.classList.remove('active');
+    });
+
+    if (registerForm) {
+        registerForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const fname = document.getElementById('reg-fname').value.trim();
+            const lname = document.getElementById('reg-lname').value.trim();
+            const phone = document.getElementById('reg-phone').value.trim();
+            const email = document.getElementById('reg-email').value.trim().toLowerCase();
+            const password = document.getElementById('reg-password').value;
+
+            const users = JSON.parse(localStorage.getItem('taxi_users'));
+            const exists = users.find(u => u.email === email);
+
+            if (exists) {
+                regError.textContent = "Користувач з такою поштою вже існує!";
+                regError.style.display = 'block';
+                return;
+            }
+
+            const newUser = { fname, lname, phone, email, password };
+            users.push(newUser);
+            localStorage.setItem('taxi_users', JSON.stringify(users));
+            localStorage.setItem('taxi_currentUser', JSON.stringify(newUser));
+            
+            registerForm.reset();
+            registerModal.classList.remove('active');
+            checkAuth();
+        });
+    }
+
+    if (loginForm) {
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value.trim().toLowerCase();
+            const password = document.getElementById('login-password').value;
+
+            const users = JSON.parse(localStorage.getItem('taxi_users'));
+            const user = users.find(u => u.email === email);
+
+            if (!user) {
+                loginError.textContent = "Користувача з такою поштою не знайдено!";
+                loginError.style.display = 'block';
+                return;
+            }
+
+            if (user.password !== password) {
+                loginError.textContent = "Невірний пароль!";
+                loginError.style.display = 'block';
+                return;
+            }
+
+            localStorage.setItem('taxi_currentUser', JSON.stringify(user));
+            loginForm.reset();
+            loginModal.classList.remove('active');
+            checkAuth();
+        });
+    }
+
+    if (btnLogout) {
+        btnLogout.addEventListener('click', () => {
+            localStorage.removeItem('taxi_currentUser');
+            checkAuth();
+        });
+    }
+
+    if (bookingForm) {
+        bookingForm.addEventListener('submit', (e) => {
+            const currentUser = JSON.parse(localStorage.getItem('taxi_currentUser'));
+            if (!currentUser) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                loginError.textContent = "Будь ласка, увійдіть в акаунт, щоб зробити замовлення!";
+                loginError.style.display = 'block';
+                loginModal.classList.add('active');
+            }
+        });
+    }
+
+    const inputs = document.querySelectorAll('.floating-input');
+    inputs.forEach(input => {
+        input.addEventListener('input', () => {
+            if (input.value.trim() !== '') input.classList.add('has-value');
+            else input.classList.remove('has-value');
+        });
+    });
+
+    checkAuth();
+});
