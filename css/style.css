@@ -1097,3 +1097,50 @@ a, button, input, select, .car-option {
 }
 
 .tilt-card { transition: transform 0.1s; }
+
+.leaflet-routing-alternatives-container {
+    display: none !important;
+}
+
+/* Модальні вікна (Логін / Реєстрація) */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal.active {
+    display: flex;
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+    background: var(--glass-bg);
+    position: relative;
+    width: 90%;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    border: 1px solid var(--glass-border);
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    color: var(--text);
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.close-btn:hover {
+    color: var(--accent);
+}
