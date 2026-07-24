@@ -356,9 +356,11 @@ body {
 
 /* Форма Замовлення */
 .booking-wrapper {
-    max-width: 800px;
+    max-width: 1200px;
     margin: 0 auto;
     position: relative;
+    width: 100%;
+    padding: 0 20px;
 }
 
 .glass-form {
@@ -391,33 +393,61 @@ label {
 
 .input-wrapper {
     position: relative;
-    display: flex;
-    align-items: center;
+    width: 100%;
 }
 
 .input-icon {
     position: absolute;
     left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
     font-size: 1.2rem;
+    z-index: 2;
+    pointer-events: none;
 }
 
-input, select {
+input, select, .floating-input {
     width: 100%;
-    padding: 15px 15px 15px 45px;
+    padding: 28px 15px 12px 45px;
     border: 2px solid var(--gray-light);
     border-radius: 12px;
     background: rgba(255, 255, 255, 0.8);
     font-family: inherit;
     font-size: 1rem;
+    line-height: 1.5;
     color: var(--text);
     transition: var(--transition);
+    display: block;
 }
 
-input:focus, select:focus {
+input:focus, select:focus, .floating-input:focus {
     outline: none;
     border-color: var(--accent);
     background: var(--white);
     box-shadow: 0 0 0 4px rgba(46, 204, 113, 0.1);
+}
+
+.floating-label {
+    position: absolute;
+    left: 45px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1rem;
+    color: var(--gray);
+    transition: all 0.2s ease;
+    pointer-events: none;
+    z-index: 1;
+    margin: 0;
+}
+
+.floating-input:focus ~ .floating-label,
+.floating-input:not(:placeholder-shown) ~ .floating-label,
+.floating-input.has-value ~ .floating-label {
+    top: 18px;
+    font-size: 0.75rem;
+    line-height: 1;
+    color: var(--accent);
+    font-weight: 600;
 }
 
 .form-hint {
